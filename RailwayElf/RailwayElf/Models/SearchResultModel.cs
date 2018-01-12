@@ -7,9 +7,9 @@ namespace RailwayElf
         public String Error { get; set; }
         public String Captcha { get; set; }
         public String Data { get; set; }
-        public ISearchResultValue Value { get; set; }
+        public String Value { get; set; }
 
-        public SearchResultModel(String captcha, String data, String error, ISearchResultValue value)
+        public SearchResultModel(String captcha, String data, String error, String value)
         {
             Captcha = captcha;
             Data = data;
