@@ -13,18 +13,20 @@ namespace RailwayElf.Controllers
     {
         // GET: api/tickets
         [HttpGet]
-        public SearchResultModel Get()
+        public IActionResult Get()
         {
             var bookChecker = new TicketsChecker();
             var response = bookChecker.checkTickets().Result;
-            return response;
+            return Ok(response);
         }
 
         // GET: api/Tickets/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{depDate}", Name = "Get")]
+        public IActionResult Get(String depDate)
         {
-            return "value";
+            var bookChecker = new TicketsChecker();
+            var response = bookChecker.checkTickets(depDate).Result;
+            return Ok(response);
         }
         
         // POST: api/Tickets

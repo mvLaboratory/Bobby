@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
@@ -27,7 +27,7 @@ namespace RailwayElf
                 new KeyValuePair<string, string>("station_id_till", parameters.StationTill.StationId),
                 new KeyValuePair<string, string>("station_from", parameters.StationFrom.StationName),
                 new KeyValuePair<string, string>("station_till", parameters.StationTill.StationName),
-                new KeyValuePair<string, string>("date_dep", parameters.DepartureDate.ToString()),
+                new KeyValuePair<string, string>("date_dep", parameters.DepartureDate.ToString(new CultureInfo("de-DE"))),
                 new KeyValuePair<string, string>("time_dep", "00:00"),
                 new KeyValuePair<string, string>("time_dep_till", ""),
                 new KeyValuePair<string, string>("another_ec", "0"),
@@ -35,23 +35,30 @@ namespace RailwayElf
             });
             HttpResponseMessage response = await _client.PostAsync("/purchase/search/", content);
             String result = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                return result;
-            }
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    return result;
+            //}
             return result;
         }
 
-        public async Task<SearchResultModel> checkTickets()
+        public async Task<SearchResultModel> checkTickets(String depDate)
         {
+            var resultingDepDate = DateTime.Parse(depDate, new CultureInfo("de-DE"));
+            return await checkTickets(resultingDepDate);
+        }
+
+        public async Task<SearchResultModel> checkTickets(DateTime? depDateNullable = null)
+        {
+            DateTime depDate = depDateNullable ?? DateTime.Now;
             var kolomyia = new Station("2218030", "Коломия");
             var ternopil = new Station("2218300", "Тернопіль");
-            var searchKolTern = new TicketSearchParameter(kolomyia, ternopil, "08.01.2018");
+            var searchKolTern = new TicketSearchParameter(kolomyia, ternopil, depDate.ToString("dd.MM.yyyy"));
 
             String stringResult = await checkBookings(searchKolTern);
             stringResult = Regex.Unescape(stringResult);
             stringResult = stringResult.Replace("\\", "");
-            var result = JsonConvert.DeserializeObject<SearchResultModel>(stringResult);
+            var result = JsonConvert.DeserializeObject<SearchResultModel>(stringResult, new SearchResultModelConvertor());
             return result;
         } 
 
