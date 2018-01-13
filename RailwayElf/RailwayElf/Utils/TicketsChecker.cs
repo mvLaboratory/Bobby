@@ -60,7 +60,7 @@ namespace RailwayElf
             String stringResult = await checkBookings(searchKolTern);
             stringResult = Regex.Unescape(stringResult);
             stringResult = stringResult.Replace("\\", "");
-            var result = JsonConvert.DeserializeObject<SearchResultModel>(stringResult);
+            var result = JsonConvert.DeserializeObject<SearchResultModel>(stringResult, new SearchResultModel());
             return result;
         } 
 
