@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RailwayElf
 {
@@ -11,6 +8,9 @@ namespace RailwayElf
         public String Model { get; set; }
         public String Category { get; set; }
         public String Travel_time { get; set; }
+        public SearchResultStation From { get; set; }
+        public SearchResultStation Till { get; set; }
+        public CarriageTypes[] Types { get; set; }
         public bool Allow_transportation { get; set; }
         public bool Is_europe { get; set; }
         public bool Allow_booking { get; set; }

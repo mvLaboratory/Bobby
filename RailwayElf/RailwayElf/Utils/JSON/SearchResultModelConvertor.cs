@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RailwayElf
 {
@@ -38,16 +35,12 @@ namespace RailwayElf
                     errorMessage = obj["value"].ToString();
                 }
                 return new SearchResultModel(captcha, data, error, errorMessage, value);
-                //if (obj["value"] != null)
-                //    return obj["value"].ToString();
-                //else
-                //    return serializer.Deserialize(reader, objectType);
             }
             else
             {
                 JArray array = JArray.Load(reader);
                
-                var value = array.ToObject<SearchResultValue>();
+                var value = array.ToObject<SearchResultValue[]>();
                 return value;
             }
         }

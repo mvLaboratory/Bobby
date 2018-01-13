@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
@@ -36,10 +35,10 @@ namespace RailwayElf
             });
             HttpResponseMessage response = await _client.PostAsync("/purchase/search/", content);
             String result = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                return result;
-            }
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    return result;
+            //}
             return result;
         }
 
