@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -42,11 +43,19 @@ namespace RailwayElf
             return result;
         }
 
-        public async Task<SearchResultModel> checkTickets()
+        public async Task<SearchResultModel> checkTickets(String depDate)
         {
+            var resultingDepDate = DateTime.Now;
+            DateTime.TryParse(depDate, out resultingDepDate);
+            return await checkTickets(resultingDepDate);
+        }
+
+        public async Task<SearchResultModel> checkTickets(DateTime? depDateNullable = null)
+        {
+            DateTime depDate = depDateNullable ?? DateTime.Now;
             var kolomyia = new Station("2218030", "Коломия");
             var ternopil = new Station("2218300", "Тернопіль");
-            var searchKolTern = new TicketSearchParameter(kolomyia, ternopil, "08.01.2018");
+            var searchKolTern = new TicketSearchParameter(kolomyia, ternopil, depDate.ToString("dd.MM.yyyy"));
 
             String stringResult = await checkBookings(searchKolTern);
             stringResult = Regex.Unescape(stringResult);

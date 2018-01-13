@@ -21,10 +21,12 @@ namespace RailwayElf.Controllers
         }
 
         // GET: api/Tickets/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{depDate}", Name = "Get")]
+        public SearchResultModel Get(String depDate)
         {
-            return "value";
+            var bookChecker = new TicketsChecker();
+            var response = bookChecker.checkTickets(depDate).Result;
+            return response;
         }
         
         // POST: api/Tickets

@@ -4,12 +4,13 @@ namespace RailwayElf
 {
     public class SearchResultModel
     {
-        public String Error { get; set; }
+        public bool Error { get; set; }
+        public String ErrorMessage { get; set; }
         public String Captcha { get; set; }
         public String Data { get; set; }
         public String Value { get; set; }
 
-        public SearchResultModel(String captcha, String data, String error, String value)
+        public SearchResultModel(String captcha, String data, bool error, String value)
         {
             Captcha = captcha;
             Data = data;
