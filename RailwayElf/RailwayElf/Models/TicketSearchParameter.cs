@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace RailwayElf
 {
@@ -16,7 +17,7 @@ namespace RailwayElf
         }
 
         public TicketSearchParameter(Station stationFrom, Station stationTill, String departureDate)
-            : this(stationFrom, stationTill, DateTime.Parse(departureDate))
+            : this(stationFrom, stationTill, DateTime.Parse(departureDate, new CultureInfo("de-DE")))
         {
         }
     }

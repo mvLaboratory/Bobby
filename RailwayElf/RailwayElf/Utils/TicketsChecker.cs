@@ -28,7 +28,7 @@ namespace RailwayElf
                 new KeyValuePair<string, string>("station_id_till", parameters.StationTill.StationId),
                 new KeyValuePair<string, string>("station_from", parameters.StationFrom.StationName),
                 new KeyValuePair<string, string>("station_till", parameters.StationTill.StationName),
-                new KeyValuePair<string, string>("date_dep", parameters.DepartureDate.ToString()),
+                new KeyValuePair<string, string>("date_dep", parameters.DepartureDate.ToString(new CultureInfo("de-DE"))),
                 new KeyValuePair<string, string>("time_dep", "00:00"),
                 new KeyValuePair<string, string>("time_dep_till", ""),
                 new KeyValuePair<string, string>("another_ec", "0"),
@@ -45,8 +45,7 @@ namespace RailwayElf
 
         public async Task<SearchResultModel> checkTickets(String depDate)
         {
-            var resultingDepDate = DateTime.Now;
-            DateTime.TryParse(depDate, out resultingDepDate);
+            var resultingDepDate = DateTime.Parse(depDate, new CultureInfo("de-DE"));
             return await checkTickets(resultingDepDate);
         }
 
@@ -60,7 +59,7 @@ namespace RailwayElf
             String stringResult = await checkBookings(searchKolTern);
             stringResult = Regex.Unescape(stringResult);
             stringResult = stringResult.Replace("\\", "");
-            var result = JsonConvert.DeserializeObject<SearchResultModel>(stringResult, new SearchResultModel());
+            var result = JsonConvert.DeserializeObject<SearchResultModel>(stringResult, new SearchResultModelConvertor());
             return result;
         } 
 

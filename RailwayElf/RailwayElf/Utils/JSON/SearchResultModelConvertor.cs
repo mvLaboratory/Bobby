@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,35 @@ namespace RailwayElf
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (reader.TokenType == JsonToken.Null)
+            if (reader.TokenType == JsonToken.StartObject)
             {
-                return String.Empty;
+                JObject obj = JObject.Load(reader);
+                bool error = obj["error"].Value<bool?>() ?? false;
+                String errorMessage = "";
+                SearchResultValue[] value = new SearchResultValue[] { };
+                String captcha = obj["captcha"].ToString();
+                String data = obj["data"].ToString();
+                if (!error)
+                {
+                    value = obj["value"].ToObject<SearchResultValue[]>(serializer);
+                }
+                else
+                {
+                    errorMessage = obj["value"].ToString();
+                }
+                return new SearchResultModel(captcha, data, error, errorMessage, value);
+                //if (obj["value"] != null)
+                //    return obj["value"].ToString();
+                //else
+                //    return serializer.Deserialize(reader, objectType);
             }
-            else {
-
+            else
+            {
+                JArray array = JArray.Load(reader);
+               
+                var value = array.ToObject<SearchResultValue>();
+                return value;
             }
-
-            return null;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

@@ -8,13 +8,14 @@ namespace RailwayElf
         public String ErrorMessage { get; set; }
         public String Captcha { get; set; }
         public String Data { get; set; }
-        public String Value { get; set; }
+        public SearchResultValue[] Value { get; set; }
 
-        public SearchResultModel(String captcha, String data, bool error, String value)
+        public SearchResultModel(String captcha, String data, bool error, String errorMessage, SearchResultValue[] value)
         {
             Captcha = captcha;
             Data = data;
             Error = error;
+            ErrorMessage = errorMessage;
             Value = value;
         }
     }
