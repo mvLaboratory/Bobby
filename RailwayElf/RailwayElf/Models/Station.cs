@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace RailwayElf
 {
     public class Station
     {
+        [JsonProperty(PropertyName = "value")]
         public String StationId { get; set; }
+
+        [JsonProperty(PropertyName = "title")]
         public String StationName { get; set; }
 
         public Station(String stationId, String stationName)
@@ -15,7 +19,7 @@ namespace RailwayElf
 
         public override String ToString()
         {
-            return "{$StatioId: $StationName}";
+            return String.Format("{{0}: {1}}", StationId, StationName);
         }
     }
 }
