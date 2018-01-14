@@ -18,7 +18,6 @@
     },
     "RailwayElf": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "api/tickets",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
