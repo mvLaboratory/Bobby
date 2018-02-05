@@ -1,12 +1,10 @@
 using System;
 using System.Threading.Tasks;
-
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Net.Http;
 
-
-namespace Microsoft.Bot.Sample.SimpleEchoBot
+namespace NewsBot
 {
     [Serializable]
     public class EchoDialog : IDialog<object>
@@ -31,11 +29,18 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     "Didn't get that!",
                     promptStyle: PromptStyle.Auto);
             }
+            else if(message.Text == "news")
+            {
+                StoreClient(message);
+                await context.PostAsync("Got it! Expect news soon! )");
+                context.Wait(MessageReceivedAsync);
+            }
             else
             {
                 String responseText = await GenerateResponse(message.Text);
                 await context.PostAsync(responseText);
                 context.Wait(MessageReceivedAsync);
+                              
             }
         }
 
@@ -54,11 +59,19 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             context.Wait(MessageReceivedAsync);
         }
 
-
         private async Task<String> GenerateResponse(String requestText)
         {
-            await Task.Delay(3000);
             return String.Format("Fuck, you said: {0}!!", requestText);
         }
+
+        private void StoreClient(IMessageActivity clientMessage)
+        {
+            //TODO:: init in consttructor
+            convSaver = new ConversationSaverFake();
+            convSaver.SaveConversation(clientMessage);
+        }
+
+        [NonSerialized()]
+        private IConversationSaver convSaver;
     }
 }

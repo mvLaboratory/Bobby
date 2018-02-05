@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace SimpleEchoBot
+namespace NewsBot
 {
     public static class WebApiConfig
     {
@@ -32,6 +32,8 @@ namespace SimpleEchoBot
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            GlobalRoutine.Run();
         }
     }
 }
