@@ -7,7 +7,7 @@ using System.Net.Http;
 namespace NewsBot
 {
     [Serializable]
-    public class EchoDialog : IDialog<object>
+    public class NewsDialog : IDialog<object>
     {
         protected int count = 1;
 

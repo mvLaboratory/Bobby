@@ -18,10 +18,12 @@ namespace NewsBot
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
+            var comProv = new CommandProvider();
+            var test = comProv.GetCommands();
             // check if activity is of type message
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new EchoDialog());
+                await Conversation.SendAsync(activity, () => new NewsDialog());
             }
             else
             {
