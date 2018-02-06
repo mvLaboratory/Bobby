@@ -4,23 +4,30 @@ using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
+using Unity.Attributes;
 
 namespace NewsBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        //public MessagesController()
+        //{
+
+        //}
+
+        public MessagesController(ICommandFactory commandFactory)
+        {
+            _commandFactory = commandFactory;
+        }
+
         /// <summary>
         /// POST: api/Messages
-        /// receive a message from a user and send replies
         /// </summary>
         /// <param name="activity"></param>
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
-            //var comProv = new CommandProvider();
-            //var test = comProv.GetCommands();
-            // check if activity is of type message
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
                 await Conversation.SendAsync(activity, () => new NewsDialog());
@@ -60,5 +67,7 @@ namespace NewsBot
 
             return null;
         }
+
+        private ICommandFactory _commandFactory;
     }
 }
