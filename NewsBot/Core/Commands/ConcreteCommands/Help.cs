@@ -1,15 +1,16 @@
 ﻿using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NewsBot
+namespace NewsBot.Commands
 {
-    public class HelpCommand : ICommand
+    public class Help : CommandBase
     {
-        public String Name { get; } = "help";
+        public override String Name { get; } = "help";
 
-        public async Task<bool> Execute(Activity activity, String args)
+        public override async Task<bool> Execute(Activity activity, String args)
         {
             await Conversation.SendAsync(activity, () => new HelpMonologue());
             return true;

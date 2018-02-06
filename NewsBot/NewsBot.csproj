@@ -182,12 +182,12 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="Core\Commands\CommandProvider.cs" />
-    <Compile Include="Core\Commands\ConcreteCommands\HelpCommand.cs" />
+    <Compile Include="Core\Commands\CommandBase.cs" />
+    <Compile Include="Core\Commands\CommandFactory.cs" />
+    <Compile Include="Core\Commands\ConcreteCommands\Help.cs" />
     <Compile Include="Core\Commands\ICommand.cs" />
-    <Compile Include="Core\Commands\ConcreteCommands\GreetingsCommand.cs" />
-    <Compile Include="Core\Commands\ICommandParser.cs" />
-    <Compile Include="Core\Commands\ICommandProvider.cs" />
+    <Compile Include="Core\Commands\ConcreteCommands\Greetings.cs" />
+    <Compile Include="Core\Commands\ICommandFactory.cs" />
     <Compile Include="Core\GlobalRoutine.cs" />
     <Compile Include="Dialogs\HelpMonologue.cs" />
     <Compile Include="Dialogs\GreetingsMonologue.cs" />

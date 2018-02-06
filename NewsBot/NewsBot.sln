@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsBot", "NewsBot.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAPI", "..\NewsAPI\NewsAPI.csproj", "{6F1A74B6-4A63-45EB-BDB1-D5BFA3F3A12D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsTests", "NewsTests\NewsTests.csproj", "{804234A6-0140-4A36-BC7E-8B0C8E9A5904}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{6F1A74B6-4A63-45EB-BDB1-D5BFA3F3A12D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F1A74B6-4A63-45EB-BDB1-D5BFA3F3A12D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F1A74B6-4A63-45EB-BDB1-D5BFA3F3A12D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{804234A6-0140-4A36-BC7E-8B0C8E9A5904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{804234A6-0140-4A36-BC7E-8B0C8E9A5904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{804234A6-0140-4A36-BC7E-8B0C8E9A5904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{804234A6-0140-4A36-BC7E-8B0C8E9A5904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
