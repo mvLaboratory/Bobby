@@ -5,14 +5,13 @@ using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
 using Unity.Attributes;
-using System;
 
 namespace NewsBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        public MessagesController() : this (new CommandFactory())
+        public MessagesController() : this(new CommandFactory())
         {
         }
 
@@ -27,21 +26,19 @@ namespace NewsBot
         /// <param name="activity"></param>
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
-        {         
+        {
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-                //await Conversation.SendAsync(activity, () => new NewsDialog());
-                String messageText = activity.Text;
-                return await executeCommand(activity, messageText);
+                await Conversation.SendAsync(activity, () => new NewsDialog());
             }
             else
             {
-                return await HandleSystemMessage(activity);
+                HandleSystemMessage(activity);
             }
-            
+            return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
         }
 
-        private async Task<HttpResponseMessage> HandleSystemMessage(Activity message)
+        private Activity HandleSystemMessage(Activity message)
         {
             if (message.Type == ActivityTypes.DeleteUserData)
             {
@@ -50,7 +47,9 @@ namespace NewsBot
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
-                return await executeCommand(message, "greetings");
+                // Handle conversation state changes, like members being added and removed
+                // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
+                // Not available in all channels
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {
@@ -65,20 +64,7 @@ namespace NewsBot
             {
             }
 
-            return await executeCommand(message, "");
-        }
-
-        private async Task<HttpResponseMessage> executeCommand(Activity activity, String message)
-        {
-            var _command = _commandFactory.parseCommand(message);
-            if (await _command.Execute(activity, message))
-            {
-                return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
-            }
-            else
-            {
-                return new HttpResponseMessage(System.Net.HttpStatusCode.ExpectationFailed);
-            }
+            return null;
         }
 
         private ICommandFactory _commandFactory;
