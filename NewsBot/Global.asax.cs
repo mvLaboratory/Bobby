@@ -39,7 +39,6 @@ namespace NewsBot
                 });
 
             UnityMvcActivator.Start();
-            //ControllerBuilder.Current.
             GlobalRoutine.Run();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);

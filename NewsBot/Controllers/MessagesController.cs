@@ -11,10 +11,9 @@ namespace NewsBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        //public MessagesController()
-        //{
-
-        //}
+        public MessagesController() : this (new CommandFactory())
+        {
+        }
 
         public MessagesController(ICommandFactory commandFactory)
         {
