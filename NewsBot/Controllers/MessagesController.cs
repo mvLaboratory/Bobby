@@ -5,6 +5,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
 using Unity.Attributes;
+using System;
 
 namespace NewsBot
 {
@@ -26,19 +27,21 @@ namespace NewsBot
         /// <param name="activity"></param>
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
-        {
+        {         
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new NewsDialog());
+                //await Conversation.SendAsync(activity, () => new NewsDialog());
+                String messageText = activity.Text;
+                return await executeCommand(activity, messageText);
             }
             else
             {
-                HandleSystemMessage(activity);
+                return await HandleSystemMessage(activity);
             }
-            return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
+            
         }
 
-        private Activity HandleSystemMessage(Activity message)
+        private async Task<HttpResponseMessage> HandleSystemMessage(Activity message)
         {
             if (message.Type == ActivityTypes.DeleteUserData)
             {
@@ -47,9 +50,7 @@ namespace NewsBot
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
-                // Handle conversation state changes, like members being added and removed
-                // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
-                // Not available in all channels
+                return await executeCommand(message, "greetings");
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {
@@ -64,7 +65,20 @@ namespace NewsBot
             {
             }
 
-            return null;
+            return await executeCommand(message, "");
+        }
+
+        private async Task<HttpResponseMessage> executeCommand(Activity activity, String message)
+        {
+            var _command = _commandFactory.parseCommand(message);
+            if (await _command.Execute(activity, message))
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.ExpectationFailed);
+            }
         }
 
         private ICommandFactory _commandFactory;
