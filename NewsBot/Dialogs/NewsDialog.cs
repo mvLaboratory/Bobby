@@ -9,7 +9,10 @@ namespace NewsBot
     [Serializable]
     public class NewsDialog : IDialog<object>
     {
-        protected int count = 1;
+        public NewsDialog(ICommandFactory _commandFactory)
+        {
+            var t = _commandFactory;
+        }
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -49,7 +52,6 @@ namespace NewsBot
             var confirm = await argument;
             if (confirm)
             {
-                this.count = 1;
                 await context.PostAsync("Reset count.");
             }
             else
@@ -66,9 +68,7 @@ namespace NewsBot
 
         private void StoreClient(IMessageActivity clientMessage)
         {
-            //TODO:: init in consttructor
-            convSaver = new ConversationSaverFake();
-            convSaver.SaveConversation(clientMessage);
+
         }
 
         [NonSerialized()]

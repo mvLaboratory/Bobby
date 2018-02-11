@@ -1,9 +1,10 @@
 ﻿using Microsoft.Bot.Connector;
+using System.Threading.Tasks;
 
 namespace NewsBot
 {
     interface IConversationSaver
     {
-        bool SaveConversation(IMessageActivity activity);
+        Task<bool> SaveConversation(IMessageActivity activity);
     }
 }

@@ -5,21 +5,19 @@ using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
 using Unity.Attributes;
+using System.Threading;
 
 namespace NewsBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        public MessagesController() : this(new CommandFactory())
+        public MessagesController()
         {
+            //TODO:: init from DI
+            _conversationSaver = new ConversationSaverFake();
+            _commandFactory = new CommandFactory();
         }
-
-        public MessagesController(ICommandFactory commandFactory)
-        {
-            _commandFactory = commandFactory;
-        }
-
         /// <summary>
         /// POST: api/Messages
         /// </summary>
@@ -29,16 +27,16 @@ namespace NewsBot
         {
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new NewsDialog());
+                await Conversation.SendAsync(activity, () => new NewsDialog(_commandFactory));
             }
             else
             {
-                HandleSystemMessage(activity);
+                await HandleSystemMessage(activity);
             }
             return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
         }
 
-        private Activity HandleSystemMessage(Activity message)
+        private async Task<Activity> HandleSystemMessage(Activity message)
         {
             if (message.Type == ActivityTypes.DeleteUserData)
             {
@@ -47,9 +45,16 @@ namespace NewsBot
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
-                // Handle conversation state changes, like members being added and removed
-                // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
-                // Not available in all channels
+                SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
+                await semaphoreSlim.WaitAsync();
+                try
+                {
+                    await _conversationSaver.SaveConversation(message);
+                }
+                finally
+                {
+                    semaphoreSlim.Release();
+                }
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {
@@ -68,5 +73,8 @@ namespace NewsBot
         }
 
         private ICommandFactory _commandFactory;
+        private IConversationSaver _conversationSaver;
+
+
     }
 }

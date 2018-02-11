@@ -15,9 +15,9 @@ namespace NewsBot
         private static async Task NewsRoutine()
         {
             var chatClients = new ConversationListProviderFake().GetConversations();
-            while (true)
+            while (false)
             {
-                await Task.Delay(10000);
+                await Task.Delay(100000);
 
                 foreach (var client in chatClients)
                 {

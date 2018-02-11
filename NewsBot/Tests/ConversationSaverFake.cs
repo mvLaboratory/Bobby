@@ -1,10 +1,12 @@
 ﻿using Microsoft.Bot.Connector;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NewsBot
 {
     public class ConversationSaverFake : IConversationSaver
     {
-        public bool SaveConversation(IMessageActivity activity)
+        public async Task<bool> SaveConversation(IMessageActivity activity)
         {
             var converstion = new ChatConversation()
             {
@@ -17,7 +19,14 @@ namespace NewsBot
                 ConversationId = activity.Conversation.Id
             };
 
-            ConverstionStorageStub.ChatConverstions.Add(converstion);
+
+            if (!ConverstionStorageStub.ChatConverstions.Any(conv => conv.ReceiverID.Equals(converstion.ReceiverID) || conv.SenderID.Equals(converstion.ReceiverID)))
+            {
+                ConverstionStorageStub.ChatConverstions.Add(converstion);
+
+                var convStatus = new ChatConversationStatus(converstion, ConversationStatus.New);
+                ConverstionStorageStub.ChatConverstionStatus.Add(convStatus);
+            }
 
             return true;
         }
