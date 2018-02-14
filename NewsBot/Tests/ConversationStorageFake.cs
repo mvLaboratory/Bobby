@@ -4,7 +4,7 @@ namespace NewsBot
 {
     public class ConversationListProviderFake : IConversationClientsListProvider
     {
-        public List<ChatClients> GetClietns()
+        public List<ChatClient> GetClietns()
         {
             return ConverstionStorageStub.ChatClients;
         }

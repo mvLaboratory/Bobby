@@ -4,7 +4,7 @@ namespace NewsBot
 {
     public static class ConverstionStorageStub
     {
-        public static List<ChatClients> ChatClients { get; set; } = new List<ChatClients>();
+        public static List<ChatClient> ChatClients { get; set; } = new List<ChatClient>();
 
         public static List<ChatConversationStatus> ChatConverstionStatus { get; set; } = new List<ChatConversationStatus>();
     }

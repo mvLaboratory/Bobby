@@ -10,7 +10,7 @@ namespace NewsBot
     {
         public async Task<bool> SaveConversation(IMessageActivity activity, SemaphoreSlim _semaphoreSlim)
         {
-            var client = new ChatClients()
+            var client = new ChatClient()
             {
                 ReceiverID = activity.From.Id,
                 ReceiverName = activity.From.Name,

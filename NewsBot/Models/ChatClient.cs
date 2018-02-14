@@ -6,7 +6,7 @@ using System.Web;
 namespace NewsBot
 {
     [Serializable]
-    public class ChatClients
+    public class ChatClient
     {
         public String ReceiverID { get; set; }
         public String ReceiverName { get; set; }
@@ -16,7 +16,7 @@ namespace NewsBot
         public String ChannelID { get; set; }
         public String ConversationId { get; set; }
 
-        public ChatClients()
+        public ChatClient()
         {
 
         }

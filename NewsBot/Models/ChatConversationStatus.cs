@@ -7,10 +7,10 @@ namespace NewsBot
 {
     public class ChatConversationStatus
     {
-        public ChatClients Converstion {get; set;}
+        public ChatClient Converstion {get; set;}
         public ConversationStatus Status { get; set; }
 
-        public ChatConversationStatus(ChatClients converstion, ConversationStatus status)
+        public ChatConversationStatus(ChatClient converstion, ConversationStatus status)
         {
             Converstion = converstion;
             Status = status;
