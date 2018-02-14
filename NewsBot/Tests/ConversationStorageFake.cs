@@ -2,11 +2,11 @@
 
 namespace NewsBot
 {
-    public class ConversationListProviderFake : IConversationListProvider
+    public class ConversationListProviderFake : IConversationClientsListProvider
     {
-        public List<ChatConversation> GetConversations()
+        public List<ChatClients> GetClietns()
         {
-            return ConverstionStorageStub.ChatConverstions;
+            return ConverstionStorageStub.ChatClients;
         }
     }
 }

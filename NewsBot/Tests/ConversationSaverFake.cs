@@ -1,14 +1,16 @@
 ﻿using Microsoft.Bot.Connector;
+using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NewsBot
 {
     public class ConversationSaverFake : IConversationSaver
     {
-        public async Task<bool> SaveConversation(IMessageActivity activity)
+        public async Task<bool> SaveConversation(IMessageActivity activity, SemaphoreSlim _semaphoreSlim)
         {
-            var converstion = new ChatConversation()
+            var client = new ChatClients()
             {
                 ReceiverID = activity.From.Id,
                 ReceiverName = activity.From.Name,
@@ -19,15 +21,21 @@ namespace NewsBot
                 ConversationId = activity.Conversation.Id
             };
 
-
-            if (!ConverstionStorageStub.ChatConverstions.Any(conv => conv.ReceiverID.Equals(converstion.ReceiverID) || conv.SenderID.Equals(converstion.ReceiverID)))
+            await _semaphoreSlim.WaitAsync();
+            try
             {
-                ConverstionStorageStub.ChatConverstions.Add(converstion);
+                if (!ConverstionStorageStub.ChatClients.Any(conv => conv.ReceiverID.Equals(client.ReceiverID) || conv.SenderID.Equals(client.ReceiverID)))
+                {
+                    ConverstionStorageStub.ChatClients.Add(client);
 
-                var convStatus = new ChatConversationStatus(converstion, ConversationStatus.New);
-                ConverstionStorageStub.ChatConverstionStatus.Add(convStatus);
+                    var convStatus = new ChatConversationStatus(client, ConversationStatus.New);
+                    ConverstionStorageStub.ChatConverstionStatus.Add(convStatus);
+                }
             }
-
+            finally
+            {
+                _semaphoreSlim.Release();
+            }
             return true;
         }
     }

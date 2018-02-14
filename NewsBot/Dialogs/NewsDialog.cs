@@ -70,8 +70,5 @@ namespace NewsBot
         {
 
         }
-
-        [NonSerialized()]
-        private IConversationSaver convSaver;
     }
 }

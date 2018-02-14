@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Bot.Connector;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NewsBot
@@ -14,7 +15,7 @@ namespace NewsBot
 
         private static async Task NewsRoutine()
         {
-            var chatClients = new ConversationListProviderFake().GetConversations();
+            List<ChatClients> chatClients = new ConversationListProviderFake().GetClietns();
             while (false)
             {
                 await Task.Delay(100000);
