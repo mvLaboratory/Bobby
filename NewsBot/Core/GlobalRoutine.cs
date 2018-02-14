@@ -8,14 +8,20 @@ namespace NewsBot
 {
     public class GlobalRoutine
     {
-        public static Task Run()
+        public GlobalRoutine(IMessageSender messageSender, IConversationClientsListProvider conversationClientsProvider)
+        {
+            _messageSender = messageSender;
+            _conversationClientsProvider = conversationClientsProvider;
+        }
+
+        public Task Run()
         {
             return NewsRoutine();
         }
 
-        private static async Task NewsRoutine()
+        private async Task NewsRoutine()
         {
-            List<ChatClient> chatClients = new ConversationListProviderFake().GetClietns();
+            List<ChatClient> chatClients = _conversationClientsProvider.GetClietns();
             while (false)
             {
                 await Task.Delay(100000);
@@ -49,6 +55,11 @@ namespace NewsBot
                     await connector.Conversations.SendToConversationAsync((Activity)message);
                 }
             }
+
+           // List<ChatConversationStatus> clientStatuses = _conversationClientsProvider.Get;
         }
+
+        IMessageSender _messageSender;
+        IConversationClientsListProvider _conversationClientsProvider;
     }
 }

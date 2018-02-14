@@ -39,7 +39,12 @@ namespace NewsBot
                 });
 
             UnityMvcActivator.Start();
-            GlobalRoutine.Run();
+
+            //TODO::Use DI
+            IMessageSender sender = new MessageSender();
+            IConversationClientsListProvider conversationClientsListProvider = new ConversationListProviderFake();
+            GlobalRoutine _globalRoutine = new GlobalRoutine(sender, conversationClientsListProvider);
+            _globalRoutine.Run();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }

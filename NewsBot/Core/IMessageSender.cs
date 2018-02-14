@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
+using System;
 using System.Threading.Tasks;
 
 namespace NewsBot
 {
     public interface IMessageSender
     {
-        void SendMessage();
+        Task<bool> SendMessage(ChatClient client, String message);
     }
 }
