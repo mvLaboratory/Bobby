@@ -2,8 +2,10 @@
 
 namespace NewsBot
 {
-    interface IConversationClientsListProvider
+    public interface IConversationClientsListProvider
     {
         List<ChatClient> GetClietns();
+
+        List<ChatConversationStatus> GetConversationsStatuses();
     }
 }

@@ -1,12 +1,13 @@
 ﻿
 using Microsoft.Bot.Connector;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NewsBot
 {
-    public class GlobalRoutine
+    public class GlobalRoutine : IGlobalRoutine
     {
         public GlobalRoutine(IMessageSender messageSender, IConversationClientsListProvider conversationClientsProvider)
         {
@@ -14,9 +15,29 @@ namespace NewsBot
             _conversationClientsProvider = conversationClientsProvider;
         }
 
-        public Task Run()
+        public void Run()
         {
-            return NewsRoutine();
+            //return NewsRoutine();
+            ConversationLifecircle();
+        }
+
+        private void ConversationLifecircle()
+        {
+            Task.Factory.StartNew( async () => await Greetingloop() );
+        }
+
+        private async Task Greetingloop()
+        {
+            while (true)
+            {
+                List<ChatConversationStatus> chatClients = _conversationClientsProvider.GetConversationsStatuses().Where(conv => conv.Status == ConversationStatus.New).ToList();
+                foreach (var client in chatClients)
+                {
+                    await _messageSender.SendMessage(client.Converstion, "Hi!");
+                    client.Status = ConversationStatus.Active;
+                }
+                await Task.Delay(10000);
+            }
         }
 
         private async Task NewsRoutine()

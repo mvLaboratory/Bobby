@@ -8,5 +8,10 @@ namespace NewsBot
         {
             return ConverstionStorageStub.ChatClients;
         }
+
+        public List<ChatConversationStatus> GetConversationsStatuses()
+        {
+            return ConverstionStorageStub.ChatConverstionStatus;
+        }
     }
 }

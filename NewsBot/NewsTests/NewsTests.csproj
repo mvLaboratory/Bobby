@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="BotCommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BotLifeCircleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

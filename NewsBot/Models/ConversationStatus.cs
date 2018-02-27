@@ -8,7 +8,7 @@ namespace NewsBot
     public enum ConversationStatus
     {
         New,
-        AfterGreetings,
+        Active,
         NewsRequested
     }
 }
