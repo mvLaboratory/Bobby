@@ -41,7 +41,7 @@ namespace NewsBot
             // container.LoadConfiguration();
 
             // TODO: Register your type's mappings here.
-            container.RegisterType<ICommandFactory, CommandFactory>();
+            container.RegisterType<IConversationSaver, ConversationSaverFake>();
         }
     }
 }

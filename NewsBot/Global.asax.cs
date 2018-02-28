@@ -6,8 +6,6 @@ using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Connector;
-using System.Web.Mvc;
-using Unity.AspNet.Mvc;
 
 namespace NewsBot
 {
@@ -37,8 +35,7 @@ namespace NewsBot
                         .SingleInstance();
 
                 });
-
-            UnityMvcActivator.Start();
+        
 
             //TODO::Use DI
             IMessageSender sender = new MessageSender();
@@ -47,6 +44,7 @@ namespace NewsBot
             _globalRoutine.Run();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            //ControllerBuilder.Current.SetControllerFactory(new DIControllerFactory());
         }
     }
 }

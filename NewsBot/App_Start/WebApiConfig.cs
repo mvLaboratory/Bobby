@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http;
 using System.Web.Http.Dependencies;
-using Unity.AspNet.Mvc;
 
 namespace NewsBot
 {
@@ -22,6 +21,7 @@ namespace NewsBot
             };
 
             // Web API configuration and services
+            UnityWebApiActivator.Start();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

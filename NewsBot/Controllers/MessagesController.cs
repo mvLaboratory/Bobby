@@ -12,7 +12,7 @@ namespace NewsBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        public MessagesController()
+        public MessagesController(IConversationSaver conversationSaver)
         {
             //TODO:: init from DI
             _conversationSaver = new ConversationSaverFake();

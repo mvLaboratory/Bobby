@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace NewsBot
 {
-    interface IConversationSaver
+    public interface IConversationSaver
     {
         Task<bool> SaveConversation(IMessageActivity activity, SemaphoreSlim _semaphoreSlim);
     }
