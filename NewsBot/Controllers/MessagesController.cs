@@ -12,11 +12,11 @@ namespace NewsBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        public MessagesController(IConversationSaver conversationSaver)
+        public MessagesController(IConversationSaver conversationSaver, ICommandFactory commandFactory, IMessageSender messageSender)
         {
-            //TODO:: init from DI
-            _conversationSaver = new ConversationSaverFake();
-            _commandFactory = new CommandFactory();
+            _conversationSaver = conversationSaver;
+            _commandFactory = commandFactory;
+            _messageSender = messageSender;
         }
         /// <summary>
         /// POST: api/Messages
@@ -65,6 +65,7 @@ namespace NewsBot
 
         private ICommandFactory _commandFactory;
         private IConversationSaver _conversationSaver;
+        private IMessageSender _messageSender;
         SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
     }
 }

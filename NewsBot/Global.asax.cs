@@ -44,7 +44,6 @@ namespace NewsBot
             _globalRoutine.Run();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            //ControllerBuilder.Current.SetControllerFactory(new DIControllerFactory());
         }
     }
 }
