@@ -17,13 +17,17 @@ namespace NewsBot
 
         public void Run()
         {
-            //return NewsRoutine();
-            ConversationLifecircle();
+            Task.Factory.StartNew(() =>
+                {
+                    //NewsRoutine();
+                    ConversationLifecircle();
+                }
+            );
         }
 
-        private void ConversationLifecircle()
+        private async void ConversationLifecircle()
         {
-            Task.Factory.StartNew( async () => await Greetingloop() );
+            await Greetingloop();
         }
 
         private async Task Greetingloop()
