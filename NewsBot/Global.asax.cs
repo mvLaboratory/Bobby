@@ -6,6 +6,7 @@ using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Connector;
+using Unity;
 
 namespace NewsBot
 {
@@ -35,12 +36,13 @@ namespace NewsBot
                         .SingleInstance();
 
                 });
-        
+
 
             //TODO::Use DI
-            IMessageSender sender = new MessageSender();
-            IConversationClientsListProvider conversationClientsListProvider = new ConversationListProviderFake();
-            GlobalRoutine _globalRoutine = new GlobalRoutine(sender, conversationClientsListProvider);
+            //IMessageSender sender = new MessageSender();
+            //IConversationClientsListProvider conversationClientsListProvider = new ConversationListProviderFake();
+            //GlobalRoutine _globalRoutine = new GlobalRoutine(sender, conversationClientsListProvider);
+            IGlobalRoutine _globalRoutine = (IGlobalRoutine) UnityConfig.Container.Resolve(typeof(IGlobalRoutine));
             _globalRoutine.Run();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);

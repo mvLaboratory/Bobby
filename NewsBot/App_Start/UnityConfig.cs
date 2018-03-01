@@ -43,6 +43,8 @@ namespace NewsBot
             container.RegisterType<IConversationSaver, ConversationSaverFake>();
             container.RegisterType<ICommandFactory, CommandFactory>();
             container.RegisterType<IMessageSender, MessageSender>();
+            container.RegisterType<IConversationClientsListProvider, ConversationListProviderFake>();
+            container.RegisterType<IGlobalRoutine, GlobalRoutine>();
         }
     }
 }

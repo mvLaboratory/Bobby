@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NewsBot
 {
-    interface IGlobalRoutine
+    public interface IGlobalRoutine
     {
         void Run();
     }
