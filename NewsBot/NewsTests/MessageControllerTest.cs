@@ -11,9 +11,9 @@ namespace NewsTests
         [TestMethod]
         public void BasicTest()
         {
-            var activity = A.Fake<Activity>();
+            //var activity = A.Fake<Activity>();
                 //Isolate.Fake.Instance<Activity>();
-            var a = 1;
+            //var a = 1;
         }
     }
 }
