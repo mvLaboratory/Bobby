@@ -10,8 +10,8 @@ namespace NewsTests
         [TestMethod]
         public void TestMainLoop()
         {
-            IMessageSender sender = new MessageSender();
-            IConversationClientsListProvider conversationClientsListProvider = new ConversationListProviderFake();
+            //IMessageSender sender = new MessageSender();
+            //IConversationClientsListProvider conversationClientsListProvider = new ConversationListProviderFake();
 
             //var mainRoutine = new GlobalRoutine(sender, conversationClientsListProvider);
             //mainRoutine.Run();
