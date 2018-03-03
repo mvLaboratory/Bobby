@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace NewsBot
 {
-    interface ITextFactory
+    public interface ITextFactory
     {
+        String GetText(String constantName);
     }
 }

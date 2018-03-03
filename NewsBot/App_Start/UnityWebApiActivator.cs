@@ -1,5 +1,4 @@
 using System.Web.Http;
-
 using Unity.AspNet.WebApi;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NewsBot.UnityWebApiActivator), nameof(NewsBot.UnityWebApiActivator.Start))]

@@ -232,6 +232,7 @@
     <Compile Include="Dialogs\GreetingsMonologue.cs" />
     <Compile Include="Dialogs\Texts\ITextFactory.cs" />
     <Compile Include="Dialogs\NewsDialog.cs" />
+    <Compile Include="Dialogs\Texts\TextFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -243,6 +244,11 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\BotText.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BotText.resx</DependentUpon>
     </Compile>
     <Compile Include="Storage\IConversationSaver.cs" />
     <Compile Include="Tests\ConversationSaverFake.cs" />
@@ -264,6 +270,12 @@
     </None>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BotText.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BotText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

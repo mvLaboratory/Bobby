@@ -6,6 +6,6 @@ namespace NewsBot
 {
     public interface IConversationSaver
     {
-        Task<bool> SaveConversation(IMessageActivity activity, SemaphoreSlim _semaphoreSlim);
+        Task<bool> SaveConversation(IMessageActivity activity);
     }
 }

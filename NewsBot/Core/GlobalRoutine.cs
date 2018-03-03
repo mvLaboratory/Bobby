@@ -20,7 +20,7 @@ namespace NewsBot
             Task.Factory.StartNew(() =>
                 {
                     //NewsRoutine();
-                    ConversationLifecircle();
+                    //ConversationLifecircle();
                 }
             );
         }

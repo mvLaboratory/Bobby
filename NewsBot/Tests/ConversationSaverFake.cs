@@ -3,12 +3,19 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity;
 
 namespace NewsBot
 {
     public class ConversationSaverFake : IConversationSaver
     {
-        public async Task<bool> SaveConversation(IMessageActivity activity, SemaphoreSlim _semaphoreSlim)
+        public ConversationSaverFake(IMessageSender messageSender)
+        {
+            _messageSender = messageSender;
+            _semaphoreSlim = UnityConfig.Container.Resolve<SemaphoreSlim>("semafore");
+        }
+
+        public async Task<bool> SaveConversation(IMessageActivity activity)
         {
             var client = new ChatClient()
             {
@@ -30,6 +37,8 @@ namespace NewsBot
 
                     var convStatus = new ChatConversationStatus(client, ConversationStatus.New);
                     ConverstionStorageStub.ChatConverstionStatus.Add(convStatus);
+
+                    await _messageSender.SendMessage(client, "Greeting");
                 }
             }
             finally
@@ -38,5 +47,8 @@ namespace NewsBot
             }
             return true;
         }
+
+        private SemaphoreSlim _semaphoreSlim;
+        private IMessageSender _messageSender;
     }
 }

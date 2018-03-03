@@ -1,5 +1,5 @@
 using System;
-
+using System.Threading;
 using Unity;
 
 namespace NewsBot
@@ -40,11 +40,15 @@ namespace NewsBot
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
+            SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+            container.RegisterInstance<SemaphoreSlim>("semafore", _semaphoreSlim);
+
             container.RegisterType<IConversationSaver, ConversationSaverFake>();
             container.RegisterType<ICommandFactory, CommandFactory>();
             container.RegisterType<IMessageSender, MessageSender>();
             container.RegisterType<IConversationClientsListProvider, ConversationListProviderFake>();
             container.RegisterType<IGlobalRoutine, GlobalRoutine>();
+            container.RegisterType<ITextFactory, TextFactory>();
         }
     }
 }

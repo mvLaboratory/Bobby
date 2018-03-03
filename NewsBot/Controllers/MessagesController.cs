@@ -45,7 +45,7 @@ namespace NewsBot
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
-                await _conversationSaver.SaveConversation(message, _semaphoreSlim);
+                await _conversationSaver.SaveConversation(message);
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {
@@ -66,6 +66,6 @@ namespace NewsBot
         private ICommandFactory _commandFactory;
         private IConversationSaver _conversationSaver;
         private IMessageSender _messageSender;
-        SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+        //SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
     }
 }

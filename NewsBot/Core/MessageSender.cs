@@ -9,7 +9,12 @@ namespace NewsBot
 {
     public class MessageSender : IMessageSender
     {
-        public async Task<bool> SendMessage(ChatClient client, String messageText)
+        public MessageSender(ITextFactory textFactory)
+        {
+            _textFactory = textFactory;
+        }
+
+        public async Task<bool> SendMessage(ChatClient client, String messageConstant)
         {
             var userAccount = new ChannelAccount(client.ReceiverID, client.ReceiverName);
             var botAccount = new ChannelAccount(client.SenderID, client.SenderName);
@@ -28,11 +33,13 @@ namespace NewsBot
             message.From = botAccount;
             message.Recipient = userAccount;
             message.Conversation = new ConversationAccount(id: client.ConversationId);
-            message.Text = messageText;
+            message.Text = _textFactory.GetText(messageConstant);
             message.Locale = "en-us";
             await connector.Conversations.SendToConversationAsync((Activity)message);
 
             return true;
         }
+
+        private ITextFactory _textFactory;
     }
 }
