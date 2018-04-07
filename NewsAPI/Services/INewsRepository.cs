@@ -12,5 +12,7 @@ namespace NewsAPI.Services
         void AddCategory(Category model);
         void UpdateCategory(Category mode);
         void DeleteCategory(Category model);
+
+        Boolean Save();
     }
 }

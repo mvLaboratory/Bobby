@@ -25,7 +25,7 @@ namespace NewsAPI.Storage
 
         public List<Category> GetCategories()
         {
-            throw new NotImplementedException();
+            return _context.categories.OrderBy(cat => cat.Name).ToList();
         }
 
         public Category GetCategory()
@@ -36,6 +36,11 @@ namespace NewsAPI.Storage
         public void UpdateCategory(Category mode)
         {
             throw new NotImplementedException();
+        }
+
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
         }
 
         private NewsContext _context;
