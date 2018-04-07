@@ -10,7 +10,7 @@ namespace NewsBot.Commands
     {
         public override String Name { get; } = "greetings";
 
-        public override async Task<bool> Execute(Activity activity, String args)
+        public override async Task<bool> Execute(IActivity activity, String args)
         {
             //await Conversation.SendAsync(activity, () => new GreetingsMonologue());
             return true;

@@ -228,7 +228,6 @@
     <Compile Include="Core\IMessageSender.cs" />
     <Compile Include="Core\MessageSender.cs" />
     <Compile Include="Dialogs\HelpMonologue.cs" />
-    <Compile Include="Dialogs\GreetingsMonologue.cs" />
     <Compile Include="Dialogs\Texts\ITextFactory.cs" />
     <Compile Include="Dialogs\NewsDialog.cs" />
     <Compile Include="Dialogs\Texts\TextFactory.cs" />

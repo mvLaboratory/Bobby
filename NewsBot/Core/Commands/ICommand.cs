@@ -8,6 +8,6 @@ namespace NewsBot
     {
         String Name { get; }
 
-        Task<bool> Execute(Activity activity, String args);
+        Task<bool> Execute(IActivity activity, String args = "");
     }
 }

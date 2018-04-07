@@ -12,7 +12,7 @@ namespace NewsTests
         public void BasicTest()
         {
             //var activity = A.Fake<Activity>();
-                //Isolate.Fake.Instance<Activity>();
+            //Isolate.Fake.Instance<Activity>();
             //var a = 1;
         }
     }

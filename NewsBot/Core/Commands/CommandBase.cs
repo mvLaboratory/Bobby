@@ -9,7 +9,7 @@ namespace NewsBot.Commands
     {
         public abstract string Name { get; }
 
-        public abstract Task<bool> Execute(Activity activity, string args);
+        public abstract Task<bool> Execute(IActivity activity, string args);
 
         public override bool Equals(object obj)
         {
